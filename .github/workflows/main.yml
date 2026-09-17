@@ -26,10 +26,16 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      - name: Check JAR files
+      - name: Inspect JAR
         run: |
-          echo "JAR files:"
+          echo "=== TARGET FILES ==="
           ls -lh target/
+
+          echo "=== APP CLASS ==="
+          jar tf target/semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar | grep "com/napier/sem/App.class"
+
+          echo "=== MANIFEST ==="
+          unzip -p target/semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar META-INF/MANIFEST.MF
 
       - name: Build Docker Image
         run: docker build --no-cache -t devopsimage .
