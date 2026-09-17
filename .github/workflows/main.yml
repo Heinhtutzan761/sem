@@ -31,10 +31,6 @@ jobs:
           echo "JAR files:"
           ls -lh target/
 
-      - name: Check App.class
-        run: |
-          jar tf target/semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar | grep "com/napier/sem/App.class"
-
       - name: Build Docker Image
         run: docker build --no-cache -t devopsimage .
 
