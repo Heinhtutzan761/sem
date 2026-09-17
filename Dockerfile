@@ -1,7 +1,7 @@
-FROM eclipse-temurin:25
+FROM amazoncorretto:25
 
-COPY ./target/classes/com /tmp/com
+COPY target/semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar /tmp/
 
 WORKDIR /tmp
 
-ENTRYPOINT ["java", "com.napier.sem.App"]
+ENTRYPOINT ["java", "-jar", "semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar"]
