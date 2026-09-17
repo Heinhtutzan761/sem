@@ -30,7 +30,17 @@ jobs:
         run: |
             echo "=== TARGET FILES ==="
              ls -lh target/
+      - name: Check Dockerfile
+        run: |
+          echo "=== DOCKERFILE ==="
+          cat Dockerfile
 
+          echo "=== TARGET ==="
+          ls -lh target/
+
+          echo "=== APP CLASS ==="
+          find target/classes -type f | grep "App.class"
+          
       - name: Build Docker Image
         run: docker build --no-cache -t devopsimage .
           
