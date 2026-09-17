@@ -24,13 +24,15 @@ jobs:
           docker run -d --name mongo-dbserver --network se-methods mongo
 
       - name: Build with Maven
-        run: mvn package
+        run: mvn clean package assembly:single
 
-      - name: Check JAR
+      - name: Check JAR files
         run: |
           echo "JAR files:"
           ls -lh target/
-          echo "Checking App.class:"
+
+      - name: Check App.class
+        run: |
           jar tf target/semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar | grep "com/napier/sem/App.class"
 
       - name: Check JAR manifest
