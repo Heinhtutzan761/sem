@@ -25,7 +25,13 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package
+      - name: Check Java source
+        run: |
+          echo "=== JAVA FILES ==="
+          find . -name "App.java" -type f
 
+          echo "=== COMPILED CLASSES ==="
+          find target/classes -type f
       - name: Check JAR files
         run: |
             echo "=== TARGET FILES ==="
