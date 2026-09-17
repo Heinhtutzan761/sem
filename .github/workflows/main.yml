@@ -22,7 +22,15 @@ jobs:
         run: mvn package
       - name: Build
         run: docker build -t se_methods .
+      - name: Inspect Docker Image
+        run: |
+          docker run --rm --entrypoint sh devopsimage -c "
+          echo 'Files in /tmp:'
+          ls -lh /tmp
+          cho 'Checking App.class:'
+            jar tf /tmp/semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar | grep 'com/napier/sem/App.class'
+          "
       - name: Run image
-        run: docker run --network se-methods --name devopscontainer se_methods
+        run: docker run --network se-methods --name devopscontainer devopsimage
       - name: view logs
         run: docker logs devopscontainer
