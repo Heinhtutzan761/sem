@@ -32,6 +32,17 @@ jobs:
 
           echo "=== COMPILED CLASSES ==="
           find target/classes -type f
+      - name: Check Java source and compiled files
+        run: |
+          echo "=== App.java ==="
+          find . -name "App.java" -type f -print
+
+          echo "=== ALL JAVA FILES ==="
+          find . -name "*.java" -type f -print
+
+          echo "=== COMPILED FILES ==="
+          find target/classes -type f -print
+          
       - name: Check JAR files
         run: |
             echo "=== TARGET FILES ==="
