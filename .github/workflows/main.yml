@@ -1,6 +1,7 @@
 name: Build and Test
 
-on: push
+on:
+  push:
 
 jobs:
   build:
@@ -17,62 +18,28 @@ jobs:
           java-version: '25'
           distribution: 'temurin'
 
-      - name: Setup Docker network
-        run: |
-          docker network create --driver bridge se-methods
-          docker pull mongo
-          docker run -d --name mongo-dbserver --network se-methods mongo
-
       - name: Build with Maven
         run: mvn clean package
 
-       - name: Check source and compiled files
+      - name: Check source and compiled files
         run: |
           echo "=== JAVA SOURCE FILES ==="
           find src -type f -name "*.java" -print
 
-          echo "=== APP.JAVA CONTENT ==="
+          echo "=== APP.JAVA ==="
           cat src/main/java/com/napier/sem/App.java
 
           echo "=== COMPILED FILES ==="
           find target/classes -type f -print
-          
-      - name: Check Java source
-        run: |
-          echo "=== JAVA FILES ==="
-          find . -name "App.java" -type f
 
-          echo "=== COMPILED CLASSES ==="
-          find target/classes -type f
-      - name: Check Java source and compiled files
-        run: |
-          echo "=== App.java ==="
-          find . -name "App.java" -type f -print
-
-          echo "=== ALL JAVA FILES ==="
-          find . -name "*.java" -type f -print
-
-          echo "=== COMPILED FILES ==="
-          find target/classes -type f -print
-          
       - name: Check JAR files
         run: |
-            echo "=== TARGET FILES ==="
-             ls -lh target/
-      - name: Check Dockerfile
-        run: |
-          echo "=== DOCKERFILE ==="
-          cat Dockerfile
-
-          echo "=== TARGET ==="
+          echo "=== TARGET FILES ==="
           ls -lh target/
 
-          echo "=== APP CLASS ==="
-          find target/classes -type f | grep "App.class"
-          
       - name: Build Docker Image
         run: docker build --no-cache -t devopsimage .
-          
+
       - name: Run image
         run: docker run --network se-methods --name devopscontainer devopsimage
 
