@@ -25,6 +25,18 @@ jobs:
 
       - name: Build with Maven
         run: mvn clean package
+
+       - name: Check source and compiled files
+        run: |
+          echo "=== JAVA SOURCE FILES ==="
+          find src -type f -name "*.java" -print
+
+          echo "=== APP.JAVA CONTENT ==="
+          cat src/main/java/com/napier/sem/App.java
+
+          echo "=== COMPILED FILES ==="
+          find target/classes -type f -print
+          
       - name: Check Java source
         run: |
           echo "=== JAVA FILES ==="
