@@ -1,7 +1,7 @@
 FROM amazoncorretto:25
 
-COPY target/semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar /tmp/
+COPY target/semethoda-1.0-SNAPSHOT.jar /tmp/
 
 WORKDIR /tmp
 
-ENTRYPOINT ["java", "-jar", "semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar"]
+ENTRYPOINT ["java", "-cp", "semethoda-1.0-SNAPSHOT.jar", "com.napier.sem.App"]
