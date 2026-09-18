@@ -1,4 +1,4 @@
-FROM amazoncorretto:25
+FROM eclipse-temurin:25
 
 COPY target/semethoda-1.0-SNAPSHOT-jar-with-dependencies.jar /tmp/
 
